@@ -5,7 +5,9 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
+import android.widget.FrameLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -22,9 +24,10 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     private ListView usersList;
+    private FrameLayout userFrame;
     private LayoutInflater layoutInflater;
     private Context context;
-
+    private TextView nameView, stateView, ageView;
     private List<User> users = new ArrayList<>();
 
     @Override
@@ -51,12 +54,51 @@ public class MainActivity extends AppCompatActivity {
 
     private void Init() {
         usersList = findViewById(R.id.usersList);
+        userFrame = findViewById(R.id.userFrame);
+
+        nameView = findViewById(R.id.nameView);
+        stateView = findViewById(R.id.stateView);
+        ageView = findViewById(R.id.ageView);
 
         context = this;
 
         layoutInflater = LayoutInflater.from(context);
         UsersAdapter usersAdapter = new UsersAdapter();
         usersList.setAdapter(usersAdapter);
+
+        usersList.setOnItemClickListener(this::OnUserClick);
+    }
+
+    public void OnUserClick(AdapterView<?> parent, View view, int position, long id)
+    {
+        UserVisibility(true);
+        SetUserData((User)parent.getAdapter().getItem(position));
+    }
+
+    public void BackToList(View view)
+    {
+        UserVisibility(false);
+    }
+
+    private void SetUserData(User user)
+    {
+        nameView.setText(user.getName());
+        stateView.setText(user.getState());
+        ageView.setText(String.valueOf(user.getAge()));
+    }
+
+    private void UserVisibility(boolean visible)
+    {
+        if (visible)
+        {
+            usersList.setVisibility(View.GONE);
+            userFrame.setVisibility(View.VISIBLE);
+        }
+        else
+        {
+            usersList.setVisibility(View.VISIBLE);
+            userFrame.setVisibility(View.GONE);
+        }
     }
 
     public class UsersAdapter extends BaseAdapter {

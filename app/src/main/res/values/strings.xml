@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">DatabaseAuth</string>
+    <string name="choose_user">Выберите пользователя</string>
 </resources>
