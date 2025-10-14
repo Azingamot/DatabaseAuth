@@ -45,11 +45,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void AddUsersInList() {
-        users.add(new User("Иванов И.И", "В работе", 19));
-        users.add(new User("Иванов И.И", "В работе", 19));
-        users.add(new User("Иванов И.И", "В работе", 19));
-        users.add(new User("Иванов И.И", "В работе", 19));
-        users.add(new User("Иванов И.И", "В работе", 19));
+        users.add(new User("Иванов И.И", "В работе", 19, 0));
+        users.add(new User("Иванов И.И", "В работе", 19, 1));
+        users.add(new User("Иванов И.И", "В работе", 19, 2));
+        users.add(new User("Иванов И.И", "В работе", 19, 1));
+        users.add(new User("Иванов И.И", "В работе", 19, 2));
     }
 
     private void Init() {
@@ -90,15 +90,9 @@ public class MainActivity extends AppCompatActivity {
     private void UserVisibility(boolean visible)
     {
         if (visible)
-        {
-            usersList.setVisibility(View.GONE);
             userFrame.setVisibility(View.VISIBLE);
-        }
         else
-        {
-            usersList.setVisibility(View.VISIBLE);
             userFrame.setVisibility(View.GONE);
-        }
     }
 
     public class UsersAdapter extends BaseAdapter {
@@ -128,6 +122,21 @@ public class MainActivity extends AppCompatActivity {
 
             nameView.setText(currentUser.getName());
             stateView.setText(currentUser.getState());
+
+            FrameLayout stateIndicator = convertView.findViewById(R.id.stateIndicator);
+
+            switch (currentUser.getStateSignal())
+            {
+                case 0:
+                    stateIndicator.setBackgroundResource(R.drawable.back_offline);
+                    break;
+                case 1:
+                    stateIndicator.setBackgroundResource(R.drawable.back_online);
+                    break;
+                case 2:
+                    stateIndicator.setBackgroundResource(R.drawable.back_departed);
+                    break;
+            }
 
             return convertView;
         }
