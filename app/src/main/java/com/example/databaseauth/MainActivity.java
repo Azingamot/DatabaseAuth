@@ -6,6 +6,7 @@ import static com.example.databaseauth.Data.UsersStaticInfo.Users;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,6 +37,8 @@ public class MainActivity extends AppCompatActivity {
     private TextView nameView, stateView, ageView;
     private static UsersAdapter adapter;
     private int currentUserPosition = 0;
+
+    private List<User> users = new UsersStaticInfo().Users;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,9 +85,14 @@ public class MainActivity extends AppCompatActivity {
 
     public void GoToUserProfile(int position)
     {
-        Intent intent = new Intent();
-        intent.putExtra(POSITION, position);
-        startActivity(intent);
+        try
+        {
+            Intent intent = new Intent(context, UserActivity.class);
+            intent.putExtra(POSITION, position);
+            startActivity(intent);
+        } catch (Exception e) {
+            Log.d("ERRORZ", e.getMessage());
+        }
     }
 
     public static void UpdateList()
@@ -115,12 +123,12 @@ public class MainActivity extends AppCompatActivity {
     public class UsersAdapter extends BaseAdapter {
         @Override
         public int getCount() {
-            return Users.size();
+            return users.size();
         }
 
         @Override
         public User getItem(int position) {
-            return Users.get(position);
+            return users.get(position);
         }
 
         @Override

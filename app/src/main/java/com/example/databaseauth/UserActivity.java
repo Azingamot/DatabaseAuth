@@ -4,6 +4,7 @@ import static com.example.databaseauth.Data.UsersStaticInfo.POSITION;
 import static com.example.databaseauth.Data.UsersStaticInfo.Users;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 
@@ -33,10 +34,18 @@ public class UserActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-        int position = getIntent().getIntExtra(POSITION, 0);
-        activeUser = Users.get(position);
-        Init();
-        SetUserInfo();
+        try
+        {
+            int position = getIntent().getIntExtra(POSITION, 0);
+            activeUser = Users.get(position);
+            Init();
+            SetUserInfo();
+        }
+        catch (Exception ex)
+        {
+            Log.d("ERRORZ", ex.getMessage());
+        }
+
     }
 
     private void Init()
@@ -50,7 +59,7 @@ public class UserActivity extends AppCompatActivity {
     {
         nameEdit.setText(activeUser.getName());
         statusEdit.setText(activeUser.getState());
-        ageEdit.setText(activeUser.getAge());
+        ageEdit.setText(String.valueOf(activeUser.getAge()));
     }
 
     public void Back(View view)
@@ -72,7 +81,7 @@ public class UserActivity extends AppCompatActivity {
     {
         activeUser.setName(nameEdit.getText().toString());
         activeUser.setState(nameEdit.getText().toString());
-        activeUser.setAge(Integer.getInteger(nameEdit.getText().toString()));
+        activeUser.setAge(Integer.getInteger(ageEdit.getText().toString()));
 
         MainActivity.UpdateList();
 
