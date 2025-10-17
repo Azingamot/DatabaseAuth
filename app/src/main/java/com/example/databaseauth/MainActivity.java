@@ -1,6 +1,10 @@
 package com.example.databaseauth;
 
+import static com.example.databaseauth.Data.UsersStaticInfo.POSITION;
+import static com.example.databaseauth.Data.UsersStaticInfo.Users;
+
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,9 +22,11 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.example.databaseauth.Data.User;
+import com.example.databaseauth.Data.UsersStaticInfo;
 
 import java.util.ArrayList;
 import java.util.List;
+import com.example.databaseauth.Data.UsersStaticInfo;
 
 public class MainActivity extends AppCompatActivity {
     private ListView usersList;
@@ -28,7 +34,8 @@ public class MainActivity extends AppCompatActivity {
     private LayoutInflater layoutInflater;
     private Context context;
     private TextView nameView, stateView, ageView;
-    private List<User> users = new ArrayList<>();
+    private static UsersAdapter adapter;
+    private int currentUserPosition = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,17 +47,9 @@ public class MainActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-        AddUsersInList();
         Init();
     }
 
-    private void AddUsersInList() {
-        users.add(new User("Иванов И.И", "В работе", 19, 0));
-        users.add(new User("Иванов И.И", "В работе", 19, 1));
-        users.add(new User("Иванов И.И", "В работе", 19, 2));
-        users.add(new User("Иванов И.И", "В работе", 19, 1));
-        users.add(new User("Иванов И.И", "В работе", 19, 2));
-    }
 
     private void Init() {
         usersList = findViewById(R.id.usersList);
@@ -63,8 +62,8 @@ public class MainActivity extends AppCompatActivity {
         context = this;
 
         layoutInflater = LayoutInflater.from(context);
-        UsersAdapter usersAdapter = new UsersAdapter();
-        usersList.setAdapter(usersAdapter);
+        adapter = new UsersAdapter();
+        usersList.setAdapter(adapter);
 
         usersList.setOnItemClickListener(this::OnUserClick);
     }
@@ -73,6 +72,24 @@ public class MainActivity extends AppCompatActivity {
     {
         UserVisibility(true);
         SetUserData((User)parent.getAdapter().getItem(position));
+        currentUserPosition = position;
+    }
+
+    public void EditUser(View view)
+    {
+        GoToUserProfile(currentUserPosition);
+    }
+
+    public void GoToUserProfile(int position)
+    {
+        Intent intent = new Intent();
+        intent.putExtra(POSITION, position);
+        startActivity(intent);
+    }
+
+    public static void UpdateList()
+    {
+        adapter.notifyDataSetChanged();
     }
 
     public void BackToList(View view)
@@ -98,12 +115,12 @@ public class MainActivity extends AppCompatActivity {
     public class UsersAdapter extends BaseAdapter {
         @Override
         public int getCount() {
-            return users.size();
+            return Users.size();
         }
 
         @Override
         public User getItem(int position) {
-            return users.get(position);
+            return Users.get(position);
         }
 
         @Override

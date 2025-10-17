@@ -1,4 +1,8 @@
 <resources>
     <string name="app_name">DatabaseAuth</string>
     <string name="choose_user">Выберите пользователя</string>
+    <string name="name_hint">Имя</string>
+    <string name="status_hint">Статус</string>
+    <string name="age_hint">Возраст</string>
+    <string name="save_button">Сохранить</string>
 </resources>
