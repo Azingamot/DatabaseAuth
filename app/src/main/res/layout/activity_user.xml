@@ -25,14 +25,16 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="80dp"
+        android:layout_marginTop="40dp"
         android:orientation="vertical"
+        app:layout_constraintBottom_toTopOf="@+id/saveButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <EditText
             android:id="@+id/nameUserEdit"
+            style="@style/StateText"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_marginStart="5dp"
@@ -43,18 +45,8 @@
             android:maxLines="1" />
 
         <EditText
-            android:id="@+id/stateUserEdit"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginStart="5dp"
-            android:layout_marginEnd="5dp"
-            android:ems="10"
-            android:hint="@string/status_hint"
-            android:inputType="text"
-            android:maxLines="1" />
-
-        <EditText
             android:id="@+id/ageUserEdit"
+            style="@style/StateText"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_marginStart="5dp"
@@ -63,6 +55,27 @@
             android:hint="@string/age_hint"
             android:inputType="text"
             android:maxLines="1" />
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="15dp"
+            android:background="@drawable/back_smoke_round"
+            android:padding="0dp">
+
+            <EditText
+                android:id="@+id/stateUserEdit"
+                style="@style/StateText"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="5dp"
+                android:background="@color/smoke"
+                android:ems="10"
+                android:hint="@string/status_hint"
+                android:inputType="text" />
+        </FrameLayout>
 
     </LinearLayout>
 

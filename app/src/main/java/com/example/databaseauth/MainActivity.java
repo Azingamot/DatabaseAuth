@@ -34,9 +34,9 @@ public class MainActivity extends AppCompatActivity {
     private FrameLayout userFrame;
     private LayoutInflater layoutInflater;
     private Context context;
-    private TextView nameView, stateView, ageView;
+    private static TextView nameView, stateView, ageView;
     private static UsersAdapter adapter;
-    private int currentUserPosition = 0;
+    private static int currentUserPosition = 0;
 
     private List<User> users = new UsersStaticInfo().Users;
 
@@ -98,6 +98,7 @@ public class MainActivity extends AppCompatActivity {
     public static void UpdateList()
     {
         adapter.notifyDataSetChanged();
+        SetUserData(adapter.getItem(currentUserPosition));
     }
 
     public void BackToList(View view)
@@ -105,7 +106,7 @@ public class MainActivity extends AppCompatActivity {
         UserVisibility(false);
     }
 
-    private void SetUserData(User user)
+    private static void SetUserData(User user)
     {
         nameView.setText(user.getName());
         stateView.setText(user.getState());

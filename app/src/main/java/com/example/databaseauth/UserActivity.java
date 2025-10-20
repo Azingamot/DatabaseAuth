@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -16,6 +17,7 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.example.databaseauth.Data.User;
 import com.example.databaseauth.Data.UsersStaticInfo;
+import com.example.databaseauth.Utils.Transform;
 
 public class UserActivity extends AppCompatActivity {
 
@@ -80,8 +82,8 @@ public class UserActivity extends AppCompatActivity {
     private void onSaveClicked()
     {
         activeUser.setName(nameEdit.getText().toString());
-        activeUser.setState(nameEdit.getText().toString());
-        activeUser.setAge(Integer.getInteger(ageEdit.getText().toString()));
+        activeUser.setState(statusEdit.getText().toString());
+        activeUser.setAge(Transform.parseIntOrDefault(ageEdit.getText().toString(), activeUser.getAge()));
 
         MainActivity.UpdateList();
 
