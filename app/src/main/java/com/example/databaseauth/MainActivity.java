@@ -28,6 +28,7 @@ import com.example.databaseauth.Data.UsersStaticInfo;
 import java.util.ArrayList;
 import java.util.List;
 import com.example.databaseauth.Data.UsersStaticInfo;
+import com.example.databaseauth.Database.UsersBase;
 
 public class MainActivity extends AppCompatActivity {
     private ListView usersList;
@@ -97,8 +98,8 @@ public class MainActivity extends AppCompatActivity {
 
     public static void UpdateList()
     {
-        adapter.notifyDataSetChanged();
         SetUserData(adapter.getItem(currentUserPosition));
+        adapter.notifyDataSetChanged();
     }
 
     public void BackToList(View view)

@@ -12,9 +12,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.DatabaseAuth">
         <activity
-            android:name=".UserActivity"
-            android:screenOrientation="portrait"
+            android:name=".SignInActivity"
             android:exported="false" />
+        <activity
+            android:name=".UserActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".MainActivity"
             android:exported="true">
